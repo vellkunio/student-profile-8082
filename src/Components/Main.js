@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Container from '@mui/material/Container';
 
 //MUI stuff
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
 
 import Student from './Student'
 
@@ -13,26 +14,43 @@ import Student from './Student'
 
 class Main extends Component {
     state = {
-        students: null
+        students: null,
+        searchName: ""
     }
+
     componentDidMount(){
 
         axios.get('https://www.hatchways.io/api/assessment/students')
             .then(res => {
-                // console.log(res.data)
                 this.setState({
                     students: res.data
                 })
-                // console.log(this.state.students);
             })
-            // .catch(err => console.log(err));
     }
+
+    handleChange = (event) => {
+    
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+
+}
 
     render() {
 
         let recentStudentsMarkup = this.state.students ? (
-            this.state.students.students.map(student => <Student key={student.id} student={student} />)
+            this.state.students.students.filter(
+                student => student.firstName.startsWith(this.state.searchName) || 
+                student.lastName.startsWith(this.state.searchName) ||
+                student.lastName.toLowerCase().startsWith(this.state.searchName) ||
+                student.firstName.toLowerCase().startsWith(this.state.searchName) ||
+                `${student.firstName} ${student.lastName}`.startsWith(this.state.searchName) ||
+                `${student.firstName} ${student.lastName}`.toLowerCase().startsWith(this.state.searchName)
+                )
+            .map(student => <Student key={student.id} student={student} />)
+
         ) : (
+
             // Show loading circle while getting data from json
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -41,30 +59,22 @@ class Main extends Component {
                 <CircularProgress color="inherit" />
             </Backdrop>
         )
-        // let recentProjectsMarkup = this.state.projects ? (
-        //     this.state.projects.map(project => <Project key={project.projectId} project={project}/>)
-        // ) : (
-        // <p>Loading...</p>
-        // );
+
         return (
             <Container maxWidth="sm">
+                {/* input */}
+                <TextField id="searchName" name="searchName"
+                label="Search by name" variant="standard" size="small" 
+                onChange={this.handleChange} value={this.state.searchName}
+                placeholder={"Please enter name starting with capital or lower case"}
+                style={{marginBottom: '20px'}} fullWidth 
+            />
+
+                {/* print results */}
                 {recentStudentsMarkup}
             </Container>
-            // <Fragment>
-            //     <h1>lol</h1>
-            // </Fragment>
         )
     }
 }
 
 export default Main
-
-
-// axios.get('/projects')
-        //     .then(res => {
-        //         console.log(res.data)
-        //         this.setState({
-        //             projects: res.data
-        //         })
-        //     })
-        //     .catch(err => console.log(err));
