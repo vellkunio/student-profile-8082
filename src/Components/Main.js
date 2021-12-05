@@ -67,7 +67,7 @@ class Main extends Component {
                 label="Search by name" variant="standard" size="small" 
                 onChange={this.handleChange} value={this.state.searchName}
                 placeholder={"Please enter name starting with capital or lower case"}
-                style={{marginBottom: '20px'}} fullWidth 
+                style={{marginBottom: '20px'}} fullWidth
             />
 
                 {/* print results */}
