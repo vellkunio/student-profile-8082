@@ -8,10 +8,17 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { withStyles } from '@mui/styles';
 
+import MyButton from '../util/MyButton';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import Grades from './Grades';
+
 
 const styles = {
     text: {
-        fontSize: 18
+        fontSize: 18,
+        color: "black",
+        opacity: "0.75"
     },
     largeText: {
         fontSize: 24
@@ -26,7 +33,7 @@ class Student extends Component {
     constructor(props){
         super(props);
         this.state ={
-            
+            isExpand: false
         }
     }
 
@@ -37,6 +44,12 @@ class Student extends Component {
             totalScore = totalScore + parseInt(arr[x], 10);
         }
         return totalScore/arr.length;
+    }
+
+    changeExpandState = e => {
+        this.setState({
+            isExpand: !this.state.isExpand
+        })
     }
 
     
@@ -62,6 +75,7 @@ class Student extends Component {
                      />
                     </ListItemAvatar>
                     <ListItemText
+                    disableTypography={true}
                     primary={
                     <Typography className={classes.largeText}>
                         {`${firstName} ${lastName}`}    
@@ -69,16 +83,36 @@ class Student extends Component {
                     
                     }
                     secondary={
-                        <Fragment >
+                        <Fragment>
                             <Typography className={classes.text}>Email: {email}</Typography>
                             <Typography className={classes.text}>Company: {company}</Typography>
                             <Typography className={classes.text}>Skill: {skill}</Typography>
                             <Typography className={classes.text}>Average: {average}%</Typography>
-                            
-                        </Fragment>
+                            {this.state.isExpand ? (
+                                <Grades grades={grades}/>
+                            ) : (
+                                <div></div>
+                            )}
+                        </Fragment>   
                     }
                     />
+                    {this.state.isExpand ? (
+                        <MyButton tip="Expand" onClick={this.changeExpandState}>
+                            <RemoveIcon />
+                        </MyButton>
+                    ) : (
+                        <MyButton tip="Expand" onClick={this.changeExpandState}>
+                            <AddIcon />
+                        </MyButton>
+                    )}
+
+                    {/* <MyButton tip="Expand" onClick={this.changeExpandState}>
+                        <AddIcon />
+                    </MyButton> */}
                 </ListItem>
+                
+                
+                
             <Divider variant="inset" component="li" />
             </List>
 
