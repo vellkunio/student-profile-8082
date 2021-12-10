@@ -17,7 +17,7 @@ const theme = createTheme(themeFile);
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
-      {/* if comment the line under - will cancel everything from middle to wider component */}
+      {/* if comment the line under - will move everything from middle to wider component */}
       <div className="App">
         <Container>
         <Main />

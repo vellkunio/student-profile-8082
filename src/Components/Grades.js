@@ -1,13 +1,6 @@
-import React, { Component, Fragment } from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
+import React, { Component } from 'react';
 import Typography from '@mui/material/Typography';
 import { withStyles } from '@mui/styles';
-
 
 const styles = {
     text: {
@@ -19,7 +12,6 @@ const styles = {
         fontSize: 24
     }
 }
-
 
 
 class Grades extends Component {
@@ -49,19 +41,6 @@ class Grades extends Component {
             <Typography>Test6: {grades[5]}</Typography>
             <Typography>Test7: {grades[6]}</Typography>
             <Typography>Test8: {grades[7]}</Typography>
-
-
-
-            {/* <List sx={{ width: '100%', maxWidth: 100, bgcolor: 'background.paper' }}>
-                <ListItem alignItems="flex-start">
-                    <ListItemText
-                        disablePadding
-                    />
-                    ss
-                </ListItem>
-            <Divider variant="inset" component="li" />
-            </List> */}
-
 
         </div>
     ); //end return
