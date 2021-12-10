@@ -2,11 +2,11 @@
 # Submission Detials
 
 In case any dependencies weren't installed anutomatically, here is the list:
-npm install @mui/styles
+**npm install @mui/styles
 npm install @material-ui/core --save
 npm install @mui/material @emotion/react @emotion/styled
 npm install axios --save
-npm install @mui/icons-material
+npm install @mui/icons-material**
 
 Please read the following details before you click 'Mark as Done' to your submission 
 1. Make sure that all your code is merged to the Main branch
